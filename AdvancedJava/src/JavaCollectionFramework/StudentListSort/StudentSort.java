@@ -17,12 +17,12 @@ public class StudentSort {
 		stdList.add(new Student("201802037", "박수처", 90, 80, 70));
 		stdList.add(new Student("201502110", "황금색", 88, 88, 88));
 
-		StudentSort.Ranking(stdList); // 랭킹 구하기
+		Ranking(stdList); // 랭킹 구하기
 		System.out.println("정렬 전");
 		for (Student str : stdList) {
 			System.out.println(str);
 		}
-		System.out.println("===================");
+		System.out.println("==========================================");
 
 		// 학번으로 오름차순으로 정렬하기
 		Collections.sort(stdList);
@@ -30,14 +30,14 @@ public class StudentSort {
 		for (Student str : stdList) {
 			System.out.println(str);
 		}
-		System.out.println("===========================");
+		System.out.println("==========================================");
 		// 총점으로 내림차순
 		Collections.sort(stdList, new TotalScoreSort());
 		System.out.println("총점으로 내림차순으로 정렬");
 		for (Student str : stdList) {
 			System.out.println(str);
 		}
-		System.out.println("=====================================");
+		System.out.println("==========================================");
 	}
 
 	public static void Ranking(List<Student> stdList) {
