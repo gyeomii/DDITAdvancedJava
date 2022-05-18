@@ -43,10 +43,10 @@ public class Lotto {
 	boolean isCountinue = true; // while문을 실행할 boolean값
 	int money; // 입력할 금액
 	int change;// 거스름돈
-	int[] lotto; //로또 번호를 담을 배열
+	int[] lotto; // 로또 번호를 담을 배열
 
 	public void menu() {
-		while (isCountinue) { 
+		while (isCountinue) {
 			System.out.println("================");
 			System.out.println("Lotto 프로그램");
 			System.out.println("----------------");
@@ -73,21 +73,21 @@ public class Lotto {
 		System.out.println("<<<<<<<<Lotto 구입 시작>>>>>>>>");
 		System.out.println("[1000원에 로또번호 하나입니다.]");
 		System.out.print("금액을 입력하세요 : ");
-		
+
 		money = scanner.nextInt();// 금액 입력
 		change = money % 1000;// 거스름돈
 		System.out.println();
-		
+
 		// 로또번호 출력
-		if(money>=1000) {
-		System.out.println("행운의 로또번호는 아래와 같습니다.");
-		for (int i = 0; i < money / 1000; i++) {
-			System.out.print("로또번호" + (i + 1) + ": ");
-			getLottoNum();
+		if (money >= 1000) {
+			System.out.println("행운의 로또번호는 아래와 같습니다.");
+			for (int i = 0; i < money / 1000; i++) {
+				System.out.print("로또번호" + (i + 1) + ": ");
+				getLottoNum();
+				System.out.println();
+			}
 			System.out.println();
-		}
-		System.out.println();
-		}else { // 금액이 부족한 경우
+		} else { // 금액이 부족한 경우
 			System.out.println("금액이 부족합니다.");
 		}
 		// 거스름돈 출력
@@ -98,10 +98,10 @@ public class Lotto {
 	// 로또 배열 생성
 	public void getLottoNum() {
 		TreeSet<Integer> tsLotto = new TreeSet<>();
-		Random rndNum = new Random(); 
+		Random rndNum = new Random();
 		// TreeSet에 로또번호 담기
 		while (tsLotto.size() < 6) {
-			tsLotto.add(rndNum.nextInt(45)+1);
+			tsLotto.add(rndNum.nextInt(45) + 1);
 		}
 		// '숫자, 숫자, 숫자' 로 출력하기 위한 for문
 		int cnt = 0;
@@ -121,14 +121,14 @@ public class Lotto {
 			try { // 스캐너로 입력받은 번호를 반환
 				System.out.print("메뉴 선택: ");
 				int num = scanner.nextInt();
-				return num; 
-			} catch (Exception e) { //오류발생시 재실행
+				return num;
+			} catch (Exception e) { // 오류발생시 재실행
 				System.out.println("Error : 숫자만 입력하세요");
 				scanner = new Scanner(System.in);
 			}
 		}
 	}
-	
+
 	// 메인 메소드
 	public static void main(String[] args) {
 		Lotto lottoProgram = new Lotto();
