@@ -24,7 +24,7 @@ public class Lotto {
 				} catch (Exception e) {
 					System.out.println("Error : 잘못된 값이 입력되었습니다.");
 					System.out.println("Error : 프로그램을 재시작합니다.");
-					scanner = new Scanner(System.in);
+					scanner.next();
 				}
 				break;
 			case 2:
@@ -93,7 +93,7 @@ public class Lotto {
 				return num;
 			} catch (Exception e) { // 오류발생시 재실행
 				System.out.println("Error : 잘못된 값이 입력되었습니다.");
-				scanner = new Scanner(System.in);
+				scanner.next();
 			}
 		}
 	}
