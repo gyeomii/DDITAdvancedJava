@@ -4,46 +4,10 @@ import java.util.*;
 
 //set
 public class Lotto {
-	/*
-	 * 로또를 구매하는 프로그램 작성하기
-	 * 
-	 * 사용자는 로또를 구매할 때 구매할 금액을 입력하고 입력한 금액에 맞게 로또번호를 출력한다.
-	 * (단, 로또 한장의 금액은 1000원이고 거스름돈도 계산하여 출력한다.)
-	 * 
-	 * ==========================
-	 *       Lotto 프로그램
-	 * --------------------------
-	 * 1. Lotto 구입
-	 * 2. 프로그램 종료
-	 * ==========================
-	 * 메뉴선택 : 1 <-- 입력
-	 * 
-	 * Lotto 구입 시작
-	 * 
-	 * (1000원에 로또번호 하나입니다.)
-	 * 금액 입력 : 2500 <-- 입력
-	 * 
-	 * 행운의 로또번호는 아래와 같습니다.
-	 * 로또번호1 : 2,3,4,5,6,7
-	 * 로또번호2 : 20,21,22,23,24,25
-	 * 
-	 * 받은 금액은 2500원이고 거스름돈은 500원입니다.
-	 * 
-	 * ==========================
-	 *       Lotto 프로그램
-	 * --------------------------
-	 * 1. Lotto 구입
-	 * 2. 프로그램 종료
-	 * ==========================
-	 * 메뉴선택 : 2 <-- 입력
-	 * 
-	 * 감사합니다
-	 */
 	Scanner scanner = new Scanner(System.in);
 	boolean isCountinue = true; // while문을 실행할 boolean값
 	int money; // 입력할 금액
 	int change;// 거스름돈
-	int[] lotto; // 로또 번호를 담을 배열
 
 	public void menu() {
 		while (isCountinue) {
@@ -53,9 +17,15 @@ public class Lotto {
 			System.out.println("1. Lotto 구입");
 			System.out.println("2. 프로그램 종료");
 			System.out.println("================");
-			switch (exception()) {
-			case 1:
-				buyLotto(); // 로또 구매 프로그램 실행
+			switch (menuNum()) {
+			case 1: // 로또 구매 프로그램 실행
+				try {
+					buyLotto();
+				} catch (Exception e) {
+					System.out.println("Error : 잘못된 값이 입력되었습니다.");
+					System.out.println("Error : 프로그램을 재시작합니다.");
+					scanner = new Scanner(System.in);
+				}
 				break;
 			case 2:
 				System.out.println("감사합니다.");
@@ -68,7 +38,7 @@ public class Lotto {
 	}
 
 	// 로또 구입
-	public void buyLotto() {
+	public void buyLotto() throws Exception{
 		money = 0;
 		System.out.println("<<<<<<<<Lotto 구입 시작>>>>>>>>");
 		System.out.println("[1000원에 로또번호 하나입니다.]");
@@ -81,7 +51,7 @@ public class Lotto {
 		// 로또번호 출력
 		if (money >= 1000) {
 			System.out.println("행운의 로또번호는 아래와 같습니다.");
-			for (int i = 0; i < money / 1000; i++) {
+			for (int i = 0; i < (money / 1000); i++) {
 				System.out.print("로또번호" + (i + 1) + ": ");
 				getLottoNum();
 				System.out.println();
@@ -92,7 +62,6 @@ public class Lotto {
 		}
 		// 거스름돈 출력
 		System.out.println("받은금액은 " + money + "원이고 " + "거스름돈은 " + change + "원 입니다.");
-
 	}
 
 	// 로또 배열 생성
@@ -116,14 +85,14 @@ public class Lotto {
 	}
 
 	// 예외처리
-	public int exception() {
+	public int menuNum() {
 		while (true) {
 			try { // 스캐너로 입력받은 번호를 반환
 				System.out.print("메뉴 선택: ");
 				int num = scanner.nextInt();
 				return num;
 			} catch (Exception e) { // 오류발생시 재실행
-				System.out.println("Error : 숫자만 입력하세요");
+				System.out.println("Error : 잘못된 값이 입력되었습니다.");
 				scanner = new Scanner(System.in);
 			}
 		}
