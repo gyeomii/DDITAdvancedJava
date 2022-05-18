@@ -117,7 +117,7 @@ public class Lotto {
 
 	// 예외처리
 	public int exception() {
-		while (true)
+		while (true) {
 			try { // 스캐너로 입력받은 번호를 반환
 				System.out.print("메뉴 선택: ");
 				int num = scanner.nextInt();
@@ -126,6 +126,7 @@ public class Lotto {
 				System.out.println("Error : 숫자만 입력하세요");
 				scanner = new Scanner(System.in);
 			}
+		}
 	}
 	
 	// 메인 메소드
