@@ -4,12 +4,17 @@ import java.util.*;
 
 //set
 public class Lotto {
+	public static void main(String[] args) {
+		LottoPrint lottoProgram = new LottoPrint();
+		lottoProgram.menu();
+	}
+}
+
+class LottoPrint {
 	Scanner scanner = new Scanner(System.in);
-	boolean isCountinue = true; // while문을 실행할 boolean값
-	int money; // 입력할 금액
-	int change;// 거스름돈
 
 	public void menu() {
+		boolean isCountinue = true; // while문을 실행할 boolean값
 		while (isCountinue) {
 			System.out.println("================");
 			System.out.println("Lotto 프로그램");
@@ -38,8 +43,10 @@ public class Lotto {
 	}
 
 	// 로또 구입
-	public void buyLotto() throws Exception{
-		money = 0;
+	public void buyLotto() throws Exception {
+		int money; // 입력할 금액
+		int change;// 거스름돈
+
 		System.out.println("<<<<<<<<Lotto 구입 시작>>>>>>>>");
 		System.out.println("[1000원에 로또번호 하나입니다.]");
 		System.out.print("금액을 입력하세요 : ");
@@ -96,11 +103,5 @@ public class Lotto {
 				scanner.next();
 			}
 		}
-	}
-
-	// 메인 메소드
-	public static void main(String[] args) {
-		Lotto lottoProgram = new Lotto();
-		lottoProgram.menu();
 	}
 }
