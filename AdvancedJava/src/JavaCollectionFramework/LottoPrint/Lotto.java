@@ -73,7 +73,7 @@ class LottoPrint {
 
 	// 로또 배열 생성
 	public void getLottoNum() {
-		TreeSet<Integer> tsLotto = new TreeSet<>();
+		Set<Integer> tsLotto = new TreeSet<>();
 		Random rndNum = new Random();
 		// TreeSet에 로또번호 담기
 		while (tsLotto.size() < 6) {
