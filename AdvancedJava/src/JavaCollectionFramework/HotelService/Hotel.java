@@ -16,7 +16,7 @@ class HotelService {
 	public HotelService() {
 		scanner = new Scanner(System.in);
 		isOpen = true;
-		roomMap = new HashMap<String, Room>();
+		roomMap = new TreeMap<String, Room>();
 	}
 
 	public void displayMenu() {
@@ -55,49 +55,61 @@ class HotelService {
 	}
 
 	public void checkIn() {
-		String roomNum;
+		String inNum;
 		System.out.println();
-		System.out.println("어느 방에 체크인 하시겠습니까?");
+		System.out.println("몇호실에 체크인 하시겠습니까?");
 		do {
-			System.out.print("방 번호 입력 : ");
-			roomNum = scanner.next();
-			if (roomMap.get(roomNum) != null) { // 중복데이터 검사
-				System.out.println(roomNum + "호는 사용중입니다.");
-				System.out.println("다른 방 번호를 입력해주세요.");
+			System.out.print("실 번호 입력 : ");
+			inNum = scanner.next();
+			if (roomMap.get(inNum) != null) { // 중복데이터 검사
+				System.out.println(inNum + "호는 사용중입니다.");
+				System.out.println("다른 호실 번호를 입력해주세요.");
 			}
-		} while (roomMap.get(roomNum) != null);
+		} while (roomMap.get(inNum) != null);
+
 		System.out.println("");
 		System.out.print("이름 입력 : ");
-		scanner.nextLine();
-		String name = scanner.nextLine();
+		String name = scanner.next();
 
-		roomMap.put(roomNum, new Room(roomNum, name));
+		roomMap.put(inNum, new Room(inNum, name));
 		System.out.println(name + "님 체크인 되었습니다.");
 	}
 
 	public void checkOut() {
-
+		System.out.println("몇호실을 체크아웃 하시겠습니까?");
+		System.out.print("실 번호 입력 : ");
+		String outNum = scanner.next();
+		Room r = roomMap.get(outNum);
+		String outName = r.getName();
+		if (roomMap.remove(outNum) == null) {
+			System.out.println(outNum + "호실에는 체크인한 사람이 없습니다.");
+			return;
+		} else {
+			System.out.println(outName + "님 체크아웃 되었습니다.");
+		}
 	}
 
 	public void roomInfo() {
-		System.out.println();
-		System.out.println("정보를 검색할 사람의 이름을 입력하세요");
-		System.out.println("이름 : ");
-		
-		String name = scanner.next();
-		
-		Room r =roomMap.get(name);
-		
-		if (r == null) {
-			System.out.println(name + "님과 관련된 정보가 없습니다.");
-		}else {
-			System.out.println(name + "님의 정보");
-			System.out.println("방 번호 : " + r.getRoomNum());
-			System.out.println("이름 : " + r.getName());
+		Set<String> keySet = roomMap.keySet();
+
+		if (keySet.size() == 0) {
+			System.out.println("등록된 정보가 없습니다.");
+		} else {
+			System.out.println("=============================");
+			System.out.println(" 실 번호    이름 ");
+			System.out.println("=============================");
+
+			for (String roomNum : keySet) {
+				Room r = roomMap.get(roomNum);
+				System.out.println("  " + r.getRoomNum() + "\t" + r.getName());
+			}
 		}
 	}
 
 	public void close() {
+		System.out.println("          *************************          ");
+		System.out.println("            호텔 델루나 업무 종료            ");
+		System.out.println("          *************************          ");
 		isOpen = false;
 	}
 
