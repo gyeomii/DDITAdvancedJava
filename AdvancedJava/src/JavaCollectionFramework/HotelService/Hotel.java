@@ -11,12 +11,12 @@ public class Hotel {
 class HotelService {
 	private Scanner scanner;
 	private boolean isOpen;
-	private Map<String, Room> RoomMap;
+	private Map<String, Room> roomMap;
 
 	public HotelService() {
 		scanner = new Scanner(System.in);
 		isOpen = true;
-		RoomMap = new HashMap<String, Room>();
+		roomMap = new HashMap<String, Room>();
 	}
 
 	public void displayMenu() {
@@ -61,17 +61,17 @@ class HotelService {
 		do {
 			System.out.print("방 번호 입력 : ");
 			roomNum = scanner.next();
-			if (RoomMap.get(roomNum) != null) { // 중복데이터 검사
+			if (roomMap.get(roomNum) != null) { // 중복데이터 검사
 				System.out.println(roomNum + "호는 사용중입니다.");
 				System.out.println("다른 방 번호를 입력해주세요.");
 			}
-		} while (RoomMap.get(roomNum) != null);
+		} while (roomMap.get(roomNum) != null);
 		System.out.println("");
 		System.out.print("이름 입력 : ");
 		scanner.nextLine();
 		String name = scanner.nextLine();
 
-		RoomMap.put(roomNum, new Room(roomNum, name));
+		roomMap.put(roomNum, new Room(roomNum, name));
 		System.out.println(name + "님 체크인 되었습니다.");
 	}
 
@@ -80,7 +80,21 @@ class HotelService {
 	}
 
 	public void roomInfo() {
-
+		System.out.println();
+		System.out.println("정보를 검색할 사람의 이름을 입력하세요");
+		System.out.println("이름 : ");
+		
+		String name = scanner.next();
+		
+		Room r =roomMap.get(name);
+		
+		if (r == null) {
+			System.out.println(name + "님과 관련된 정보가 없습니다.");
+		}else {
+			System.out.println(name + "님의 정보");
+			System.out.println("방 번호 : " + r.getRoomNum());
+			System.out.println("이름 : " + r.getName());
+		}
 	}
 
 	public void close() {
