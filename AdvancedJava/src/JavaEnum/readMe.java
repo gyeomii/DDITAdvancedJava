@@ -1,1 +1,5 @@
-# Enum
+package JavaEnum;
+
+public class readMe {
+	// # Enum
+}
