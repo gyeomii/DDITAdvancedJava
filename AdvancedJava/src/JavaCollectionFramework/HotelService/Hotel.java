@@ -19,7 +19,7 @@ class HotelService {
 		roomMap = new TreeMap<String, Room>();
 	}
 
-	public void displayMenu() {
+	public void displayMenu() { // 실행시 화면
 		System.out.println("          *************************          ");
 		System.out.println("            호텔 델루나 업무 시작            ");
 		System.out.println("          *************************          ");
@@ -29,7 +29,7 @@ class HotelService {
 		System.out.println("---------------------------------------------");
 	}
 
-	public void open() {
+	public void open() { // 업무시작
 
 		displayMenu();
 
@@ -54,7 +54,7 @@ class HotelService {
 		}
 	}
 
-	public void checkIn() {
+	public void checkIn() { // 체크인
 		String inNum;
 		System.out.println();
 		System.out.println("몇호실에 체크인 하시겠습니까?");
@@ -75,13 +75,13 @@ class HotelService {
 		System.out.println(name + "님 체크인 되었습니다.");
 	}
 
-	public void checkOut() {
+	public void checkOut() { // 체크아웃
 		System.out.println("몇호실을 체크아웃 하시겠습니까?");
 		System.out.print("실 번호 입력 : ");
 		String outNum = scanner.next();
 		Room r = roomMap.get(outNum);
 		String outName = r.getName();
-		if (roomMap.remove(outNum) == null) {
+		if (roomMap.remove(outNum) == null) { // remove할 데이터가 null이면 등록되지 않았다는 뜻
 			System.out.println(outNum + "호실에는 체크인한 사람이 없습니다.");
 			return;
 		} else {
@@ -89,7 +89,7 @@ class HotelService {
 		}
 	}
 
-	public void roomInfo() {
+	public void roomInfo() { // 객실 정보
 		Set<String> keySet = roomMap.keySet();
 
 		if (keySet.size() == 0) {
@@ -106,7 +106,7 @@ class HotelService {
 		}
 	}
 
-	public void close() {
+	public void close() { // 업무 종료
 		System.out.println("          *************************          ");
 		System.out.println("            호텔 델루나 업무 종료            ");
 		System.out.println("          *************************          ");
