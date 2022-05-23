@@ -2,7 +2,7 @@ package JavaEnum.PlanetArea;
 
 public class PlanetArea {
 	public enum Planet {
-		//행성명(반지름km)
+		//행성명(반지름(km))
 		수성(2439), 금성(6052), 지구(6371), 화성(3390), 목성(69911), 토성(58232), 천왕성(25362), 해왕성(24622);
 		
 		private double radius;
