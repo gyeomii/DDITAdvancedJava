@@ -19,8 +19,7 @@ public class PlanetArea {
 	public static void main(String[] args) {
 
 		for (Planet pl : Planet.values()) { // 면적 : 4πr^2, 부피 : (4/3) * (πr^3)
-			System.out.printf("%s의 면적 : %f㎢, 부피 : %f㎦\n", pl.name(), (4 * Math.PI * Math.pow(pl.getRadius(), 2)), 
-																		    (4 * Math.PI * Math.pow(pl.getRadius(), 3)) / 3);
+			System.out.printf("%s의 면적 : %f㎢, 부피 : %f㎦\n", pl.name(), (4 * Math.PI * Math.pow(pl.getRadius(), 2)), (4 * Math.PI * Math.pow(pl.getRadius(), 3)) / 3);
 		}
 
 	}
