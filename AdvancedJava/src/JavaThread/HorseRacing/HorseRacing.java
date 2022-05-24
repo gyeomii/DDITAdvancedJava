@@ -83,7 +83,7 @@ class RacingThread extends Thread {
 				e.printStackTrace();
 			}
 		}
-		// for문이 1회 끝나면 rankCnt값 1증가 (= 1마리 경주 완료)
+		// static으로 선언된 rankCnt에 RacingHorse쓰레드가 종료된 순서대로 rankCnt++
 		HorseRacing.rankCnt++;
 		if (HorseRacing.rankCnt >= HorseRacing.horse.size()) { // 총 10마리 경주 완료시
 			HorseRacing.end = true;
