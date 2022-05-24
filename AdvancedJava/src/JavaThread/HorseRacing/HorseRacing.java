@@ -8,9 +8,9 @@ public class HorseRacing {
 	static int rankCnt = 0;
 	static boolean end = false;
 	static ArrayList<Horse> horse = new ArrayList<>();
-	static ArrayList<RacingThread> racing = new ArrayList<>();
 
 	public static void main(String[] args) {
+		ArrayList<RacingThread> racing = new ArrayList<>();
 		// horse리스트에 Horse객체 10마리 담기
 		for (int i = 1; i <= 10; i++) {
 			horse.add(new Horse(i + "번마"));
@@ -25,22 +25,19 @@ public class HorseRacing {
 			racing.get(i).start();
 		}
 		
-		new HorseRacing().bang();//시작
-	}
-
-	public void bang() {
 		System.out.println("==========================[Bang]============================");
 
 		while (!end) {
 			for (RacingThread raceHorse : racing) { // Racing쓰레드가 담긴 racing리스트에서 쓰레드를 하나씩 꺼내서
 				try {
 					System.out.println(raceHorse); // 쓰레드 값 출력
-					Thread.sleep(50);
+					Thread.sleep(50); // 출력텀
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
 			System.out.println();
+			
 		}
 
 		Collections.sort(horse);// 순위정렬
