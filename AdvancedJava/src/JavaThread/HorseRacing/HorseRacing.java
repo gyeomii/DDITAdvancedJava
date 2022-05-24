@@ -8,13 +8,13 @@ public class HorseRacing {
 	static int rankCnt = 0;
 	static boolean end = false;
 	static ArrayList<Horse> horse = new ArrayList<>();
+	static ArrayList<RacingThread> racing = new ArrayList<>();
 
 	public static void main(String[] args) {
 		// horse리스트에 Horse객체 10마리 담기
 		for (int i = 1; i <= 10; i++) {
 			horse.add(new Horse(i + "번마"));
 		}
-		ArrayList<RacingThread> racing = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
 			// racing리스트.add(new RacingThread쓰레드(horse객체.get(i번배열).getName()))
 			racing.add(new RacingThread(horse.get(i).getName()));
@@ -24,8 +24,12 @@ public class HorseRacing {
 			// racing.get(i)[= i번 쓰레드].start()
 			racing.get(i).start();
 		}
+		
+		new HorseRacing().bang();//시작
+	}
 
-		System.out.println("[시작]");
+	public void bang() {
+		System.out.println("==========================[Bang]============================");
 
 		while (!end) {
 			for (RacingThread raceHorse : racing) { // Racing쓰레드가 담긴 racing리스트에서 쓰레드를 하나씩 꺼내서
@@ -54,7 +58,7 @@ class RacingThread extends Thread {
 	private String name;
 	private ArrayList<String> section = new ArrayList<>(); // 구간 생성
 	Random rnd = new Random();
-	int randomTime = rnd.nextInt(50)+200; // 난수 생성
+	int randomTime = rnd.nextInt(50) + 200; // 난수 생성
 
 	// 생성자
 	public RacingThread(String name) {
@@ -76,7 +80,7 @@ class RacingThread extends Thread {
 			} // ">"이 앞으로 한칸씩 가는것처럼 보이게 하기
 			section.set(i, ">"); // i가 커질수록 ">"을 한칸 앞으로
 
-			try {//sleep()난수 생성
+			try {// sleep()난수 생성
 				Thread.sleep(randomTime);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
