@@ -39,14 +39,6 @@ public class HorseRacing {
 			System.out.println();
 		}
 
-		for (RacingThread raceHorse : racing) {
-			try {// 다른 쓰레드가 끝날 때까지 join
-				raceHorse.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-
 		Collections.sort(horse);// 순위정렬
 
 		System.out.println("============================================================");
