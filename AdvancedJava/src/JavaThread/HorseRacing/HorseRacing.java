@@ -10,24 +10,27 @@ public class HorseRacing {
 	static ArrayList<Horse> horse = new ArrayList<>();
 
 	public static void main(String[] args) {
-		for (int i = 0; i < 10; i++) {
-			horse.add(new Horse((i + 1) + "번마"));
+		//horse리스트에 Horse객체 10마리 담기
+		for (int i = 1; i <= 10; i++) {
+			horse.add(new Horse( i + "번마"));
 		}
-	
 		ArrayList<RacingThread> racing = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
+			//racing리스트.add(new RacingThread쓰레드(horse객체.get(i번배열).getName()))
 			racing.add(new RacingThread(horse.get(i).getName()));
 		}
 		
 		for (int i = 0; i < racing.size(); i++) {
+			//racing.get(i)[= i번 쓰레드].start()
 			racing.get(i).start();
 		}
 		
 		System.out.println("[시작]");
+		
 		while (!end) {
-			for (RacingThread hr : racing) {
+			for (RacingThread raceHorse : racing) { //Racing쓰레드가 담긴 racing리스트에서 쓰레드를 하나씩 꺼내서
 				try {
-					System.out.println(hr);
+					System.out.println(raceHorse); //쓰레드 값 출력
 					Thread.sleep(50);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -36,15 +39,12 @@ public class HorseRacing {
 			System.out.println();
 		}		
 
-		for (RacingThread hr : racing) {
-			try {
-				hr.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+		/*
+		 * for (RacingThread raceHorse : racing) { try {// 다른 쓰레드가 끝날 때까지 join
+		 * raceHorse.join(); } catch (InterruptedException e) { e.printStackTrace(); } }
+		 */
 		
-		Collections.sort(horse);
+		Collections.sort(horse);// 순위정렬
 		
 		System.out.println("============================================================");
 		System.out.println();
@@ -69,17 +69,17 @@ class RacingThread extends Thread {
 
 	public void addSection() {
 		for (int i = 0; i < 50; i++) {
-			section.add("-");
+			section.add("-"); //말이 달리는 구간 ------- 만들기
 		}
 	}
 
 	@Override
 	public void run() {
-		for (int i = 0; i < 50; i++) {
-			if (i != 0) {
-				section.set(i - 1, "-");
-			}
-			section.set(i, ">");
+		for (int i = 0; i < 50; i++) { 
+			if (i != 0) { // i번 리스트에 ">"이 있으면 i-1번 배열에 ----를 출력하는 for문
+				section.set(i - 1, "-");// > 뒤에 "-"로 하나씩 대체해서
+			}							// ">"이 앞으로 한칸씩 가는것처럼 보이게 하기
+			section.set(i, ">"); //i가 커질수록 ">"을 한칸 앞으로  
 
 			try {
 				// sleep() 메서드의 값을 200~500 사이의 난수로 한다.
@@ -88,16 +88,15 @@ class RacingThread extends Thread {
 				e.printStackTrace();
 			}
 		}
-
-		// System.out.println(name + " 경주 끝");
+		//for문이 1회 끝나면 rankCnt값 1증가 (= 1마리 경주 완료)
 		HorseRacing.rankCnt++;
-		if (HorseRacing.rankCnt >= 10) {
+		if (HorseRacing.rankCnt >= HorseRacing.horse.size()) { //총 10마리 경주 완료시
 			HorseRacing.end = true;
 		}
 
 		for (int i = 0; i < HorseRacing.horse.size(); i++) {
-			if (HorseRacing.horse.get(i).getName().equals(name)) {
-				HorseRacing.horse.get(i).setRank(HorseRacing.rankCnt);
+			if (HorseRacing.horse.get(i).getName().equals(name)) { //경주가 종료된 말과 이름이 같은 horse객체에
+				HorseRacing.horse.get(i).setRank(HorseRacing.rankCnt);//  등수 저장
 			}
 		}
 	}
@@ -106,9 +105,9 @@ class RacingThread extends Thread {
 	public String toString() {
 		String str = "";
 		for (int i = 0; i < section.size(); i++) {
-			str += section.get(i);
+			str += section.get(i); //str에 for문 으로 만든 section을 담고
 		}
-		return name + "\t| " + str;
+		return name + "\t| " + str; // '이름  | ----------->-------------------- ' 형태로 출력
 	}
 }
 //Horse 클래스
