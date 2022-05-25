@@ -143,8 +143,6 @@ class PlayState extends Thread {
 				Thread.sleep(150);
 			} catch (InterruptedException e) {
 			}
-
 		}
 	}
-
 }
