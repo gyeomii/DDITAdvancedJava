@@ -15,6 +15,7 @@ public class HorseRacing {
 		for (int i = 1; i <= 10; i++) {
 			horse.add(new Horse(i + "번마"));
 		}
+		
 		for (int i = 0; i < 10; i++) {
 			// racing리스트.add(new RacingThread쓰레드(horse리스트.get(i번배열).getName()))
 			racing.add(new RacingThread(horse.get(i).getName()));
@@ -25,6 +26,7 @@ public class HorseRacing {
 			racing.get(i).start();
 		}
 		
+
 		System.out.println("==========================[Bang]============================");
 
 		while (!end) {
@@ -38,6 +40,14 @@ public class HorseRacing {
 			}
 			System.out.println();
 			
+		}
+		
+		for(RacingThread th: racing) {
+			try {
+				th.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 
 		Collections.sort(horse);// 순위정렬
@@ -76,7 +86,7 @@ class RacingThread extends Thread {
 				section.set(i - 1, "-");// > 뒤에 "-"로 하나씩 대체해서
 			} // ">"이 앞으로 한칸씩 가는것처럼 보이게 하기
 			section.set(i, ">"); // i가 커질수록 ">"을 한칸 앞으로
-
+			
 			try {// sleep()난수 생성
 				Thread.sleep(randomTime);
 			} catch (InterruptedException e) {
