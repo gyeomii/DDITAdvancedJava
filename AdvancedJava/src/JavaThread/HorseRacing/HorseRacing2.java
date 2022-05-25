@@ -1,4 +1,4 @@
-package NewHorse;
+package JavaThread.HorseRacing;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -138,7 +138,7 @@ class PlayState extends Thread {
 			}
 
 			try {
-				Thread.sleep(50);
+				Thread.sleep(150);
 			} catch (InterruptedException e) {
 			}
 
