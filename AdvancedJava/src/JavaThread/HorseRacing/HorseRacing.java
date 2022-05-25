@@ -16,7 +16,7 @@ public class HorseRacing {
 			horse.add(new Horse(i + "번마"));
 		}
 		for (int i = 0; i < 10; i++) {
-			// racing리스트.add(new RacingThread쓰레드(horse객체.get(i번배열).getName()))
+			// racing리스트.add(new RacingThread쓰레드(horse리스트.get(i번배열).getName()))
 			racing.add(new RacingThread(horse.get(i).getName()));
 		}
 
