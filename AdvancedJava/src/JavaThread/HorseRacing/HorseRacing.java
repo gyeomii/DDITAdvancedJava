@@ -12,14 +12,14 @@ public class HorseRacing {
 			horse.add(new Horse(i + "번마"));
 		}
 
-		PlayState state = new PlayState(horse);
+		Broadcast broadcast = new Broadcast(horse);
 
 		for (Horse h : horse) {
 			h.start();
 		}
 		
-		state.start();
-		
+		broadcast.start();
+
 		System.out.println("==========================[Bang]============================");
 
 		for (Horse h : horse) {
@@ -29,7 +29,7 @@ public class HorseRacing {
 			}
 		}
 		try {
-			state.join();
+			broadcast.join();
 		} catch (InterruptedException e) {
 		}
 
@@ -38,7 +38,7 @@ public class HorseRacing {
 		// 경기 종료 후 등수순으로 정렬하기
 		Collections.sort(horse);
 
-		System.out.println("경기 결과");
+		System.out.println("[=순위=]");
 		for (Horse h : horse) {
 			System.out.println(h);
 		}
@@ -47,12 +47,13 @@ public class HorseRacing {
 }
 
 class Horse extends Thread implements Comparable<Horse> {
-	public static int currentRank = 0;
+	
+	public static int count = 0;
 	private String horseName; // 말이름
 	private int rank; // 등수
 	private int location; // 현재위치
 	Random rnd = new Random();
-	int randomTime = rnd.nextInt(50) + 200;
+	int randomTime = rnd.nextInt(80) + 150;
 
 	// 생성자
 	public Horse(String horseName) {
@@ -102,24 +103,25 @@ class Horse extends Thread implements Comparable<Horse> {
 			} catch (InterruptedException e) {
 			}
 		}
-		setRank(++currentRank);
+		setRank(++count);
 	}
 
 }
 
 // 경기 중의 현재 상황을 출력하는 쓰레드
-class PlayState extends Thread {
+class Broadcast extends Thread {
+	
 	ArrayList<Horse> horse;
 
 	// 생성자
-	public PlayState(ArrayList<Horse> horses) {
+	public Broadcast(ArrayList<Horse> horses) {
 		this.horse = horses;
 	}
 
 	@Override
 	public void run() {
 		while (true) {
-			if (Horse.currentRank == horse.size()) { // 경기가 종료되면...
+			if (Horse.count == horse.size()) { // 경기가 종료되면...
 				break;
 			}
 
@@ -131,8 +133,8 @@ class PlayState extends Thread {
 				System.out.print(horse.get(i).getHorseName() + "\t: ");
 				for (int j = 1; j <= 50; j++) {
 					if (horse.get(i).getLocation() == j) { // 현재위치 표시
-						System.out.print(">");
-					} else {
+						System.out.print("🐴");
+						} else {
 						System.out.print("-");
 					}
 				}
@@ -140,7 +142,7 @@ class PlayState extends Thread {
 			}
 
 			try {
-				Thread.sleep(150);
+				Thread.sleep(200);
 			} catch (InterruptedException e) {
 			}
 		}
