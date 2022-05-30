@@ -1,11 +1,11 @@
-package fileTest;
+package JavaIO.FileCopy;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class FileTest {
+public class FileCopy {
     
     public static void main(String[] args) {
         //원본 파일경로
