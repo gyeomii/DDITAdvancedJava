@@ -9,9 +9,9 @@ public class FileCopy {
     
     public static void main(String[] args) {
         //원본 파일경로
-        String oriFilePath = "D:\\Others\\origin.txt";
+        String oriFilePath = "D:\\Others\\Tulips.jpg";
         //복사될 파일경로
-        String copyFilePath = "D:\\Others\\copy.txt";
+        String copyFilePath = "D:\\Others\\복사본_Tulips.jpg";
         
         //파일객체생성
         File oriFile = new File(oriFilePath);
