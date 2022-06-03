@@ -1,21 +1,18 @@
 package JavaJDBC.HotelServiceJDBC;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
+import util.JDBCUtil;
 
 public class Hotel3 {
 	public static void main(String[] args) {
-			new HotelService().open();
+		new HotelService().open();
 	}
 }
 
 class HotelService {
 	private Scanner scanner;
 	private boolean isOpen;
-	private TreeMap<Integer, Room> roomMap;
 	private Connection conn = null;
 	private Statement stmt = null;
 	private PreparedStatement pstmt = null;
@@ -24,7 +21,6 @@ class HotelService {
 	public HotelService() {
 		scanner = new Scanner(System.in);
 		isOpen = true;
-		roomMap = new TreeMap<Integer, Room>();
 	}
 
 	public void displayMenu() {
@@ -47,14 +43,14 @@ class HotelService {
 				try {
 					checkIn();
 				} catch (Exception e) {
-					System.err.println("호실을 정수로 입력하세요.");
+					System.out.println("호실을 정수로 입력하세요.");
 				}
 				break;
 			case 2:
 				try {
 					checkOut();
 				} catch (Exception e) {
-					System.err.println("호실을 정수로 입력하세요.");
+					System.out.println("호실을 정수로 입력하세요.");
 				}
 				break;
 			case 3:
@@ -64,62 +60,157 @@ class HotelService {
 				close();
 				break;
 			default:
-				System.err.println("메뉴에 있는 번호를 입력하세요.");
+				System.out.println("메뉴에 있는 번호를 입력하세요.");
 
 			}
 		}
 	}
 
-	public void checkIn() throws Exception{
-		int inNum;
+	public void checkIn() throws Exception {
+		int roomNum;
+		boolean isExist = false;
 		System.out.println();
 		System.out.println("몇호실에 체크인 하시겠습니까?");
 		do {
 			System.out.print("실 번호 입력 : ");
-			inNum = Integer.parseInt(scanner.next());
-			if (roomMap.get(inNum) != null) { // 중복데이터 검사
-				System.err.println(inNum + "호는 사용중입니다.");
+			roomNum = Integer.parseInt(scanner.next());
+
+			isExist = checkRoomNum(roomNum);
+
+			if (isExist) { // 중복데이터 검사
+				System.out.println(roomNum + "호는 사용중입니다.");
 				System.out.println("다른 호실 번호를 입력해주세요.");
 			}
-		} while (roomMap.get(inNum) != null);
+		} while (isExist);
 
 		System.out.println("");
 		System.out.print("이름 입력 : ");
 		String name = scanner.next();
 
-		roomMap.put(inNum, new Room(inNum, name));
-		System.out.println(name + "님 체크인 되었습니다.");
-	}
+		try {
+			conn = JDBCUtil.getConnection();
 
-	public void checkOut() throws Exception{
-		System.out.println("몇호실을 체크아웃 하시겠습니까?");
-		System.out.print("실 번호 입력 : ");
-		int outNum = Integer.parseInt(scanner.next());
-		Room r = roomMap.get(outNum);
-		if (roomMap.remove(outNum) == null) {
-			System.out.println(outNum + "호실에는 체크인한 사람이 없습니다.");
-			return;
-		} else {
-			String outName = r.getName();
-			System.out.println(outName + "님 체크아웃 되었습니다.");
+			String sql = "INSERT INTO HOTEL_MNG (ROOM_NUM, GUEST_NAME) VALUES ( ?, ?)";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, roomNum);
+			pstmt.setString(2, name);
+
+			int cnt = pstmt.executeUpdate();
+			if (cnt > 0) {
+				System.out.println(name + "님 체크인 되었습니다.");
+			} else {
+				System.out.println(name + "님 체크인 실패하였습니다.");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, stmt, pstmt, rs);
 		}
 	}
 
-	public void roomInfo() {
-		Set<Integer> keySet = roomMap.keySet();
+//----------------------------------------------------------
+	private boolean checkRoomNum(int roomNum) {
+		boolean isExist = false;
 
-		if (keySet.size() == 0) {
-			System.out.println("등록된 정보가 없습니다.");
-		} else {
+		try {
+			conn = JDBCUtil.getConnection();
+
+			String sql = "select count(*) as cnt from HOTEL_MNG where ROOM_NUM = ?";
+			// PrepareStatement 객체 생성
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, roomNum);
+			// 쿼리를 실행하여 ResultSet을 반환받음
+			rs = pstmt.executeQuery();
+			// rs에서 자료 출력
+			int cnt = 0;
+			if (rs.next()) {
+				cnt = rs.getInt("cnt");
+			}
+
+			if (cnt > 0) {
+				isExist = true;
+			} else {
+				isExist = false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, stmt, pstmt, rs);
+		}
+		return isExist;
+	}
+
+//---------------------------------------------------------------------
+	public void checkOut() throws Exception {
+		int roomNum;
+		boolean isExist = false;
+
+		do {
+			System.out.println("몇호실을 체크아웃 하시겠습니까?");
+			System.out.print("실 번호 입력 : ");
+
+			roomNum = Integer.parseInt(scanner.next());
+			isExist = checkRoomNum(roomNum);
+			if (!isExist) {
+				System.out.println(roomNum + "호에는 체크인한 사람이 없습니다.");
+			}
+		} while (!isExist);
+		
+		try {
+			conn = JDBCUtil.getConnection();
+			
+			String sql = "Delete from HOTEL_MNG WHERE ROOM_NUM = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, roomNum);
+			
+			int cnt = pstmt.executeUpdate();
+			if (cnt > 0) {
+				System.out.println(roomNum + "호 체크아웃 되었습니다.");
+			} else {
+				System.out.println(roomNum + "호 체크아웃 되었습니다.");
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(conn, stmt, pstmt, rs);
+		}
+	}
+//------------------------------------------------------------------
+	public void roomInfo() {
+
 			System.out.println("=============================");
 			System.out.println(" 실 번호    이름 ");
 			System.out.println("=============================");
-
-			for (Integer roomNum : keySet) {
-				Room r = roomMap.get(roomNum);
-				System.out.println("  " + r.getRoomNum() + "\t" + r.getName());
+		
+		try {
+			conn = JDBCUtil.getConnection();
+			
+			String sql = "select * from HOTEL_MNG";
+			
+			stmt = conn.createStatement();
+			
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next()) {
+				int roomNum = rs.getInt("ROOM_NUM");
+				String name = rs.getString("GUEST_NAME");
+				
+				System.out.println("  " + roomNum + "      " + name);
 			}
+			System.out.println("=============================");
+			System.out.println("출력 작업 완료");
+			
+		} catch (SQLException e) {
+			System.out.println("실 정보 가져오기 실패");
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, stmt, pstmt, rs);
 		}
+
 	}
 
 	public void close() {
@@ -137,42 +228,9 @@ class HotelService {
 				int num = scanner.nextInt();
 				return num;
 			} catch (Exception e) { // 오류발생시 재실행
-				System.err.println("Error : 잘못된 값이 입력되었습니다.");
+				System.out.println("Error : 잘못된 값이 입력되었습니다.");
 				scanner.next();
 			}
 		}
 	}
-}
-
-class Room {
-	private int roomNum;
-	private String name;
-
-	public Room(int inNum, String name) {
-		super();
-		this.roomNum = inNum;
-		this.name = name;
-	}
-
-	public int getRoomNum() {
-		return roomNum;
-	}
-
-	public void setRoomNum(int roomNum) {
-		this.roomNum = roomNum;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@Override
-	public String toString() {
-		return "Room [roomNum=" + roomNum + ", name=" + name + "]";
-	}
-
 }
