@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Hotel2 {
 	public static void main(String[] args) {
-			new HotelService().open();
+		new HotelService().open();
 	}
 }
 
@@ -15,7 +15,7 @@ class HotelService {
 	private TreeMap<Integer, Room> roomMap;
 	ObjectOutputStream oos = null;
 	ObjectInputStream ois = null;
-	
+
 	public HotelService() {
 		scanner = new Scanner(System.in);
 		isOpen = true;
@@ -26,37 +26,42 @@ class HotelService {
 		System.out.println("          *************************          ");
 		System.out.println("            호텔 델루나 업무 시작            ");
 		System.out.println("          *************************          ");
-		
-		try {
-			ois = new ObjectInputStream(
-					new BufferedInputStream(
-							new FileInputStream("d:/Others/roomInfo.bin")));
-			
-			Object obj = null;
-			// readObject() 호출시 역직렬화 발생함.
-			while((obj = ois.readObject()) != null) {
-				// 마지막에 다다르면 EOF 예외가 발생함.
-				
-				// 읽어온 데이터를 원래의 객체형으로 변환후 사용한다.
-				roomMap = (TreeMap<Integer, Room>) obj;
-			}
-			
-	   }catch(ClassNotFoundException ex) {
-			ex.printStackTrace();
-	   }catch(IOException ex) {
-			//ex.printStackTrace();
-		    System.out.println("          *************************          ");
-			System.out.println("           호텔정보 불러오기  완료           ");
-			System.out.println("          *************************          ");
-		}finally {
-			roomInfo();
+
+		File file = new File("d:/Others/roomInfo.bin");
+
+		if (file.isFile()) {
 			try {
-				ois.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+				ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream("d:/Others/roomInfo.bin")));
+
+				Object obj = null;
+				// readObject() 호출시 역직렬화 발생함.
+				while ((obj = ois.readObject()) != null) {
+					// 마지막에 다다르면 EOF 예외가 발생함.
+
+					// 읽어온 데이터를 원래의 객체형으로 변환후 사용한다.
+					roomMap = (TreeMap<Integer, Room>) obj;
+				}
+
+			} catch (ClassNotFoundException ex) {
+				ex.printStackTrace();
+			} catch (IOException ex) {
+				// ex.printStackTrace();
+				System.out.println("          *************************          ");
+				System.out.println("           호텔정보 불러오기  완료           ");
+				System.out.println("          *************************          ");
+			} finally {
+				roomInfo();
+				try {
+					ois.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
+		}else {
+			System.out.println("          *************************          ");
+			System.out.println("             호텔정보가 없습니다             ");
+			System.out.println("          *************************          ");
 		}
-		
 		System.out.println("---------------------------------------------");
 		System.out.println("          어떤 업무를 하시겠습니까?          ");
 		System.out.println("  1.체크인 2.체크아웃 3.객실상태 4.업무종료  ");
@@ -96,7 +101,7 @@ class HotelService {
 		}
 	}
 
-	public void checkIn() throws Exception{
+	public void checkIn() throws Exception {
 		int inNum;
 		System.out.println();
 		System.out.println("몇호실에 체크인 하시겠습니까?");
@@ -117,7 +122,7 @@ class HotelService {
 		System.out.println(name + "님 체크인 되었습니다.");
 	}
 
-	public void checkOut() throws Exception{
+	public void checkOut() throws Exception {
 		System.out.println("몇호실을 체크아웃 하시겠습니까?");
 		System.out.print("실 번호 입력 : ");
 		int outNum = Integer.parseInt(scanner.next());
@@ -151,29 +156,27 @@ class HotelService {
 	public void close() {
 		try {
 			// 객체를 파일에 저장하기
-			
+
 			// 출력용 스트림 객체 생성
-			oos = new ObjectOutputStream(
-					new BufferedOutputStream(
-							new FileOutputStream("d:/Others/roomInfo.bin")));
-			
+			oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("d:/Others/roomInfo.bin")));
+
 			// 쓰기 작업 시작..
 			oos.writeObject(roomMap); // 직렬화
-			
+
 			System.out.println("          *************************          ");
 			System.out.println("           호텔정보 출력 작업 완료           ");
 			System.out.println("          *************************          ");
-			
-		}catch(IOException ex) {
+
+		} catch (IOException ex) {
 			ex.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				oos.close(); // 스트림 닫기
 			} catch (IOException e) {
 				e.printStackTrace();
-			} 
+			}
 		}
-		
+
 		System.out.println("          *************************          ");
 		System.out.println("            호텔 델루나 업무 종료            ");
 		System.out.println("          *************************          ");
@@ -195,7 +198,7 @@ class HotelService {
 	}
 }
 
-class Room implements Serializable{
+class Room implements Serializable {
 	private int roomNum;
 	private String name;
 
