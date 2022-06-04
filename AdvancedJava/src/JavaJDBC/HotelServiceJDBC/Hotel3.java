@@ -157,20 +157,78 @@ class HotelService {
 				System.out.println(roomNum + "호에는 체크인한 사람이 없습니다.");
 			}
 		} while (!isExist);
-		
+
 		try {
 			conn = JDBCUtil.getConnection();
-			
+
 			String sql = "Delete from HOTEL_MNG WHERE ROOM_NUM = ?";
-			
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, roomNum);
-			
+
 			int cnt = pstmt.executeUpdate();
 			if (cnt > 0) {
 				System.out.println(roomNum + "호 체크아웃 되었습니다.");
 			} else {
 				System.out.println(roomNum + "호 체크아웃 되었습니다.");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, stmt, pstmt, rs);
+		}
+	}
+
+//------------------------------------------------------------------
+	public void roomInfo() {
+		if (countRoom() == 0) {
+			System.out.println("모든 객실이 비어있습니다.");
+		} else {
+			System.out.println("=============================");
+			System.out.println(" 실 번호    이름 ");
+			System.out.println("=============================");
+
+			try {
+				conn = JDBCUtil.getConnection();
+
+				String sql = "select * from HOTEL_MNG";
+
+				stmt = conn.createStatement();
+
+				rs = stmt.executeQuery(sql);
+
+				while (rs.next()) {
+					int roomNum = rs.getInt("ROOM_NUM");
+					String name = rs.getString("GUEST_NAME");
+
+					System.out.println("  " + roomNum + "      " + name);
+				}
+				System.out.println("=============================");
+				System.out.println("출력 작업 완료");
+
+			} catch (SQLException e) {
+				System.out.println("객실 정보 가져오기 실패");
+				e.printStackTrace();
+			} finally {
+				JDBCUtil.close(conn, stmt, pstmt, rs);
+			}
+		}
+	}
+
+	private int countRoom() {
+		int count = 0;
+		try {
+			conn = JDBCUtil.getConnection();
+			
+			String sql = "SELECT count(*) as cnt from HOTEL_MNG";
+			
+			stmt = conn.createStatement();
+			
+			rs = stmt.executeQuery(sql);
+			
+			if(rs.next()) {
+				count = rs.getInt("cnt");
 			}
 			
 		}catch(SQLException e) {
@@ -178,39 +236,7 @@ class HotelService {
 		}finally {
 			JDBCUtil.close(conn, stmt, pstmt, rs);
 		}
-	}
-//------------------------------------------------------------------
-	public void roomInfo() {
-
-			System.out.println("=============================");
-			System.out.println(" 실 번호    이름 ");
-			System.out.println("=============================");
-		
-		try {
-			conn = JDBCUtil.getConnection();
-			
-			String sql = "select * from HOTEL_MNG";
-			
-			stmt = conn.createStatement();
-			
-			rs = stmt.executeQuery(sql);
-			
-			while(rs.next()) {
-				int roomNum = rs.getInt("ROOM_NUM");
-				String name = rs.getString("GUEST_NAME");
-				
-				System.out.println("  " + roomNum + "      " + name);
-			}
-			System.out.println("=============================");
-			System.out.println("출력 작업 완료");
-			
-		} catch (SQLException e) {
-			System.out.println("실 정보 가져오기 실패");
-			e.printStackTrace();
-		} finally {
-			JDBCUtil.close(conn, stmt, pstmt, rs);
-		}
-
+		return count;
 	}
 
 	public void close() {
