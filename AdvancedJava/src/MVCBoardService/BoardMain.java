@@ -72,8 +72,8 @@ public class BoardMain {
 		List<BoardVO> boardList = boardService.getAllPostList();
 
 		for (BoardVO bv : boardList) {
-			System.out.println(bv.getBoardNo() + "   " + bv.getTitle() + "\t" + bv.getWriter() + "\t"
-					+ bv.getDate() + "\t" + bv.getContent());
+			System.out.println(bv.getBoardNo() + "   " + bv.getTitle() + "\t" + bv.getWriter() + "\t" + bv.getDate()
+					+ "\t" + bv.getContent());
 		}
 		System.out.println("============================================");
 		System.out.println("출력작업 끝");
@@ -103,7 +103,7 @@ public class BoardMain {
 			System.out.println("게시글 작성 실패");
 		}
 	}
-	
+
 	// 게시글 수정
 	private void editPost() {
 		boolean chk = false;
@@ -123,6 +123,8 @@ public class BoardMain {
 		} while (chk == false);
 
 		// 게시글 번호를 정상적으로 입력한 경우 아래 코드 실행
+		System.out.println("수정할 정보를 입력하세요");
+		scanner.nextLine();
 		System.out.println("게시글 제목 >> ");
 		String title = scanner.nextLine();
 		System.out.println("게시글 내용 >> ");
@@ -138,7 +140,7 @@ public class BoardMain {
 		if (cnt > 0) {
 			System.out.println(boardNo + "게시글 수정 작업 성공");
 		} else {
-			System.out.println(boardNo + "게시글 수정 작업 실패!!!");
+			System.out.println(boardNo + "게시글 수정 작업 실패");
 		}
 	}
 
@@ -169,36 +171,41 @@ public class BoardMain {
 			System.out.println(boardNo + "게시글 삭제 작업 실패");
 		}
 	}
-	
+
 	// 게시글 검색
 	private void searchPost() {
+		// 전체 게시글 확인
+		scanner.nextLine();
 		System.out.println("검색할 게시판의 제목을 입력하세요.");
-		System.out.print("검색할 글자(일부만 입력해도 됨) > ");
+		System.out.print("검색할 제목(일부만 입력 가능) >> ");
 		String title = scanner.nextLine();
-		System.out.println("검색할 작성자(정확히 입력할 것) > ");
+		System.out.print("검색할 작성자(정확히 입력하세요) >> ");
 		String writer = scanner.nextLine();
-		System.out.println("검색할 내용(일부만 입력해도 됨) > ");
+		System.out.print("검색할 내용(일부만 입력 가능) >> ");
 		String content = scanner.nextLine();
+		
 		BoardVO bv = new BoardVO();
 		bv.setTitle(title);
 		bv.setWriter(writer);
 		bv.setContent(content);
 
-		System.out.println("검색 결과 확인합니다.");
 		System.out.println("============================================");
-		System.out.println("번호\t제목\t작성자\t작성일\t내용");
+		System.out.println("                  검색결과                  ");
+		System.out.println("============================================");
+		System.out.println("============================================");
+		System.out.println("번호 제목   작성자  작성일\t\t내용");
 		System.out.println("============================================");
 
 		List<BoardVO> boardList = boardService.searchPost(bv);
 
 		for (BoardVO bv1 : boardList) {
-			System.out.println(bv1.getBoardNo() + "\t" + bv1.getTitle() + "\t" + bv1.getWriter() + "\t"
-					+ bv1.getDate() + "\t" + bv1.getContent());
+			System.out.println(bv1.getBoardNo() + "   " + bv1.getTitle() + "\t" + bv1.getWriter() + "\t" + bv1.getDate()
+			+ "\t" + bv1.getContent());
 		}
 		System.out.println("============================================");
 		System.out.println("출력작업 끝");
 	}
-	
+
 	// 종료
 	public void stop() {
 		System.out.println("          ************************          ");
