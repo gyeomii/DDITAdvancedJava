@@ -139,8 +139,6 @@ class boardService {
 		displayAllPost();
 		boolean chk = false;
 		String boardNo = null;
-		System.out.println("==게시판 수정==");
-
 		do {
 			scanner.nextLine();
 			System.out.println("수정할 게시글의 번호를 입력하세요");
@@ -157,7 +155,6 @@ class boardService {
 
 		try {
 			conn = JDBCUtil.getConnection();
-			scanner.nextLine();
 			System.out.print("게시판 제목 >> ");
 			String title = scanner.nextLine();
 			System.out.println("작성 내용 >> ");
