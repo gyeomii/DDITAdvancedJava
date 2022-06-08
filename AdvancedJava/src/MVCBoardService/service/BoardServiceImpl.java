@@ -2,44 +2,58 @@ package MVCBoardService.service;
 
 import java.util.List;
 
+import MVCBoardService.dao.BoardDaoImpl;
+import MVCBoardService.dao.IBoardDao;
 import MVCBoardService.vo.BoardVO;
 
 public class BoardServiceImpl implements IBoardService {
+	private IBoardDao boardDao;
 	
+	public BoardServiceImpl() {
+		boardDao = BoardDaoImpl.getInstance();
+	}
+	private static IBoardService boardService;
+	
+	public static IBoardService getInstance() {
+		if(boardService == null) {
+			boardService = new BoardServiceImpl();
+		}
+		return boardService;
+	}
 	@Override
 	public List<BoardVO> getAllPostList() {
-		// TODO Auto-generated method stub
-		return null;
+		List<BoardVO> boardList = boardDao.getAllPostList();
+		return boardList;
 	}
 
 	@Override
 	public int writePost(BoardVO bv) {
-		// TODO Auto-generated method stub
-		return 0;
+		int cnt = boardDao.writePost(bv);
+		return cnt;
 	}
 
 	@Override
 	public int deletePost(String boardNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int cnt = boardDao.deletePost(boardNo);
+		return cnt;
 	}
 
 	@Override
 	public int editPost(BoardVO bv) {
-		// TODO Auto-generated method stub
-		return 0;
+		int cnt = boardDao.editPost(bv);
+		return cnt;
 	}
 
 	@Override
 	public List<BoardVO> searchPost(BoardVO bv) {
-		// TODO Auto-generated method stub
-		return null;
+		List<BoardVO> boardList = boardDao.searchPost(bv);
+		return boardList;
 	}
 
 	@Override
 	public boolean checkBoard(String boardNo) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean chk = boardDao.checkBoard(boardNo);
+		return chk;
 	}
 
 }

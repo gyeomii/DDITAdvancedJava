@@ -1,6 +1,5 @@
 package MVCBoardService.dao;
 
-import java.sql.Connection;
 import java.util.List;
 
 import MVCBoardService.vo.BoardVO;
@@ -18,7 +17,7 @@ public interface IBoardDao {
 	 * @return 게시글 정보를 담고있는 List 객체
 	 * @throws SQLException JDBC관련 예외객체 발생
 	 */
-	public List<BoardVO> getAllPostList(Connection conn);
+	public List<BoardVO> getAllPostList();
 
 	/**
 	 * BoardVO 객체에 담겨진 자료를 DB에 insert하는 메서드이다.
@@ -27,7 +26,7 @@ public interface IBoardDao {
 	 * @return DB 작업이 성공하면 1이상의 값이 반환되고, 실패하면 0이 반환된다.
 	 * @throws SQLException JDBC관련 예외 객체 발생
 	 */
-	public int writePost(Connection conn, BoardVO bv);
+	public int writePost(BoardVO bv);
 	
 	/**
 	 * 게시글번호를 매개변수로 받아서 그 게시글을 삭제하는 메서드
@@ -36,7 +35,7 @@ public interface IBoardDao {
 	 * @return 작업성공 : 1, 작업 실패 : 0
 	 * @throws SQLException JDBC관련 예외객체 발생
 	 */
-	public int deletePost(Connection conn, String boardNo);
+	public int deletePost(String boardNo);
 	
 	/**
 	 * 하나의 게시글 정보를 이용하여 DB를 업데이트 하는 메서드
@@ -45,7 +44,7 @@ public interface IBoardDao {
 	 * @return 작업성공 : 1, 작업 실패 : 0
 	 * @throws SQLException JDBC관련 예외객체 발생
 	 */
-	public int editPost(Connection conn, BoardVO bv);
+	public int editPost(BoardVO bv);
 	
 	/**
 	 * 검색할 게시글 정보를 매개변수로 받아서 그 게시글을 검색하는 메서드 
@@ -54,7 +53,7 @@ public interface IBoardDao {
 	 * @return 게시글 정보를 담고있는 객체 
 	 * @throws SQLException JDBC 관련 예외객체 발생 
 	 */
-	public List<BoardVO> searchPost(Connection conn, BoardVO bv);
+	public List<BoardVO> searchPost(BoardVO bv);
 	
 	/**
 	 * 주어진 BoardNo가 존재하는지 여부를 알아내는 메서드
@@ -63,6 +62,6 @@ public interface IBoardDao {
 	 * @return 해당 게시판이 존재하면 true, 존재하지 않으면 false
 	 * @throws SQLException JDBC관련 예외객체 발생
 	 */
-	public boolean checkBoard(Connection conn, String boardNo);
+	public boolean checkBoard(String boardNo);
 
 }
