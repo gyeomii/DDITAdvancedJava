@@ -102,16 +102,17 @@ class boardService {
 	}
 
 	private void writePost() {
+		System.out.println("새로운 글을 작성합니다.");
+		scanner.nextLine();
+		System.out.print("제목   >> ");
+		String title = scanner.nextLine();
+		System.out.print("작성자 >> ");
+		String writer = scanner.nextLine();
+		System.out.print("내용   >> ");
+		String content = scanner.nextLine();
+		
 		try {
 			conn = JDBCUtil.getConnection();
-			System.out.println("새로운 글을 작성합니다.");
-			scanner.nextLine();
-			System.out.print("제목   >> ");
-			String title = scanner.nextLine();
-			System.out.print("작성자 >> ");
-			String writer = scanner.nextLine();
-			System.out.print("내용   >> ");
-			String content = scanner.nextLine();
 
 			String sql = " INSERT INTO JDBC_BOARD(BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_DATE, BOARD_CONTENT) "
 					+ " VALUES(BOARD_SEQ.NEXTVAL, ?, ?, sysdate, ?)";
@@ -136,9 +137,9 @@ class boardService {
 
 	private void editPost() {
 		displayAllPost();
-		System.out.println("==게시판 수정==");
 		boolean chk = false;
 		String boardNo = null;
+		System.out.println("==게시판 수정==");
 
 		do {
 			scanner.nextLine();
@@ -157,17 +158,16 @@ class boardService {
 		try {
 			conn = JDBCUtil.getConnection();
 			scanner.nextLine();
-			System.out.println("추가할 게시글을 정보를 입력하세요.");
 			System.out.print("게시판 제목 >> ");
-			String boardTitle = scanner.nextLine();
+			String title = scanner.nextLine();
 			System.out.println("작성 내용 >> ");
-			String boardContent = scanner.nextLine();
+			String content = scanner.nextLine();
 
 			String sql = " UPDATE JDBC_BOARD SET BOARD_TITLE = ?, BOARD_CONTENT = ? WHERE BOARD_NO = ? ";
 
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, boardTitle);
-			pstmt.setString(2, boardContent);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
 			pstmt.setString(3, boardNo);
 
 			int cnt = pstmt.executeUpdate();
@@ -230,11 +230,11 @@ class boardService {
 		scanner.nextLine();
 		System.out.println("검색할 게시판의 제목을 입력하세요.");
 		System.out.print("검색할 글자(일부만 입력해도 됨) >> ");
-		String boardTitle = scanner.nextLine();
+		String title = scanner.nextLine();
 		System.out.print("검색할 작성자(정확히 입력할 것) >> ");
-		String boardWriter = scanner.nextLine();
+		String writer = scanner.nextLine();
 		System.out.print("검색할 내용(일부만 입력해도 됨) >> ");
-		String boardContent = scanner.nextLine();
+		String content = scanner.nextLine();
 
 		try {
 			conn = JDBCUtil.getConnection();
@@ -243,25 +243,24 @@ class boardService {
 					+ "BOARD_WRITER = ? AND " + "BOARD_CONTENT LIKE '%'||?||'%' ";
 
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, boardTitle);
-			pstmt.setString(2, boardWriter);
-			pstmt.setString(3, boardContent);
+			pstmt.setString(1, title);
+			pstmt.setString(2, writer);
+			pstmt.setString(3, content);
 
 			int cnt = pstmt.executeUpdate();
 			if (cnt > 0) {
 				rs = pstmt.executeQuery();
 				System.out.println("============================================");
-				System.out.println("검색결과");
+				System.out.println("                  검색결과                  ");
 				System.out.println("============================================");
 				while (rs.next()) {
 					String boardNo = rs.getString("BOARD_NO");
-					boardTitle = rs.getString("BOARD_TITLE");
-					boardWriter = rs.getString("BOARD_WRITER");
-					String boardDate = rs.getString("BOARD_DATE");
-					boardContent = rs.getString("BOARD_CONTENT");
+					title = rs.getString("BOARD_TITLE");
+					writer = rs.getString("BOARD_WRITER");
+					String date = rs.getString("BOARD_DATE");
+					content = rs.getString("BOARD_CONTENT");
 
-					System.out.println(
-							boardNo + "\t" + boardTitle + "\t" + boardWriter + "\t" + boardDate + "\t" + boardContent);
+					System.out.println(boardNo + "   " + title + "  " + writer + "  " + date + "\t" + content);
 				}
 			} else {
 				System.out.println("검색결과가 없습니다.");
