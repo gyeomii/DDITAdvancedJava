@@ -150,7 +150,7 @@ class boardService {
 			chk = checkBoard(boardNo);
 
 			if (chk == false) {
-				System.out.println("게시글 번호 : " + boardNo + "가 없습니다.");
+				System.out.println("게시글 번호 가" + boardNo + "인 게시물이 없습니다.");
 				System.out.println("다시 입력하세요.");
 			}
 		} while (chk == false);
@@ -198,7 +198,7 @@ class boardService {
 			chk = checkBoard(boardNo);
 
 			if (chk == false) {
-				System.out.println("게시글 번호 : " + boardNo + "가 없습니다.");
+				System.out.println("게시글 번호가 " + boardNo + "인 게시물이 없습니다.");
 				System.out.println("다시 입력하세요.");
 			}
 		} while (chk == false);
@@ -229,11 +229,11 @@ class boardService {
 		// 전체 게시글 확인
 		scanner.nextLine();
 		System.out.println("검색할 게시판의 제목을 입력하세요.");
-		System.out.print("검색할 글자(일부만 입력해도 됨) >> ");
+		System.out.print("검색할 제목(일부만 입력 가능) >> ");
 		String title = scanner.nextLine();
-		System.out.print("검색할 작성자(정확히 입력할 것) >> ");
+		System.out.print("검색할 작성자(정확히 입력하세요) >> ");
 		String writer = scanner.nextLine();
-		System.out.print("검색할 내용(일부만 입력해도 됨) >> ");
+		System.out.print("검색할 내용(일부만 입력 가능) >> ");
 		String content = scanner.nextLine();
 
 		try {
