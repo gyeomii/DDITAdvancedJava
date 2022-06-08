@@ -142,19 +142,20 @@ public class BoardDaoImpl implements IBoardDao {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				BoardVO bv1 = new BoardVO();
 				String boardNo = rs.getString("BOARD_NO");
 				String boardTitle = rs.getString("BOARD_TITLE");
 				String boardWriter = rs.getString("BOARD_WRITER");
 				String boardDate = rs.getString("BOARD_DATE");
 				String boardContent = rs.getString("BOARD_CONTENT");
 
-				bv.setBoardNo(boardNo);
-				bv.setTitle(boardTitle);
-				bv.setWriter(boardWriter);
-				bv.setDate(boardDate);
-				bv.setContent(boardContent);
+				bv1.setBoardNo(boardNo);
+				bv1.setTitle(boardTitle);
+				bv1.setWriter(boardWriter);
+				bv1.setDate(boardDate);
+				bv1.setContent(boardContent);
 
-				boardList.add(bv);
+				boardList.add(bv1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

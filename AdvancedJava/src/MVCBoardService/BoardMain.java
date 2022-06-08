@@ -65,17 +65,21 @@ public class BoardMain {
 	// 전체 글 출력
 	private void displayAllPost() {
 		System.out.println("전체 게시판을 확인합니다.");
-		System.out.println("============================================");
-		System.out.println("번호 제목   작성자  작성일\t\t내용");
-		System.out.println("============================================");
 
 		List<BoardVO> boardList = boardService.getAllPostList();
 
 		for (BoardVO bv : boardList) {
-			System.out.println(bv.getBoardNo() + "   " + bv.getTitle() + "\t" + bv.getWriter() + "\t" + bv.getDate()
-					+ "\t" + bv.getContent());
+			System.out.println();
+			System.out.println("[" + bv.getBoardNo()+"번 게시글]");
+			System.out.println("=================================================");
+			System.out.println(" 작성자 : " + bv.getWriter() + "  작성일자 : " + bv.getDate());
+			System.out.println("-------------------------------------------------");
+			System.out.println(" 제목 : " + bv.getTitle());
+			System.out.println("-------------------------------------------------");
+			System.out.println("<내용>");
+			System.out.println(" " + bv.getContent());
+			System.out.println("=================================================");
 		}
-		System.out.println("============================================");
 		System.out.println("출력작업 끝");
 	}
 
@@ -188,20 +192,23 @@ public class BoardMain {
 		bv.setWriter(writer);
 		bv.setContent(content);
 
-		System.out.println("============================================");
-		System.out.println("                  검색결과                  ");
-		System.out.println("============================================");
-		System.out.println("============================================");
-		System.out.println("번호 제목   작성자  작성일\t\t내용");
-		System.out.println("============================================");
-
 		List<BoardVO> boardList = boardService.searchPost(bv);
 
+		System.out.println("=================================================");
+		System.out.println("                  검색결과                  ");
+		System.out.println("=================================================");
 		for (BoardVO bv1 : boardList) {
-			System.out.println(bv1.getBoardNo() + "   " + bv1.getTitle() + "\t" + bv1.getWriter() + "\t" + bv1.getDate()
-			+ "\t" + bv1.getContent());
+			System.out.println();
+			System.out.println("[" + bv1.getBoardNo()+"번 게시글]");
+			System.out.println("=================================================");
+			System.out.println(" 작성자 : " + bv1.getWriter() + "  작성일자 : " + bv1.getDate());
+			System.out.println("-------------------------------------------------");
+			System.out.println(" 제목 : " + bv1.getTitle());
+			System.out.println("-------------------------------------------------");
+			System.out.println("<내용>");
+			System.out.println(" " + bv1.getContent());
+			System.out.println("=================================================");
 		}
-		System.out.println("============================================");
 		System.out.println("출력작업 끝");
 	}
 
