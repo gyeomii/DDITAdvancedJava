@@ -143,7 +143,7 @@ class boardService {
 		do {
 			scanner.nextLine();
 			System.out.println("수정할 게시글의 번호를 입력하세요");
-			System.out.print("게시글 번호 > ");
+			System.out.print("게시글 번호 >> ");
 			boardNo = scanner.nextLine();
 
 			chk = checkBoard(boardNo);
@@ -158,9 +158,9 @@ class boardService {
 			conn = JDBCUtil.getConnection();
 			scanner.nextLine();
 			System.out.println("추가할 게시글을 정보를 입력하세요.");
-			System.out.print("게시판 제목 > ");
+			System.out.print("게시판 제목 >> ");
 			String boardTitle = scanner.nextLine();
-			System.out.println("작성 내용 > ");
+			System.out.println("작성 내용 >> ");
 			String boardContent = scanner.nextLine();
 
 			String sql = " UPDATE JDBC_BOARD SET BOARD_TITLE = ?, BOARD_CONTENT = ? WHERE BOARD_NO = ? ";
@@ -192,7 +192,7 @@ class boardService {
 		do {
 			scanner.nextLine();
 			System.out.println("삭제할 게시글의 번호를 입력하세요");
-			System.out.print("게시글 번호 > ");
+			System.out.print("게시글 번호 >> ");
 			boardNo = scanner.nextLine();
 
 			chk = checkBoard(boardNo);
@@ -229,11 +229,11 @@ class boardService {
 		// 전체 게시글 확인
 		scanner.nextLine();
 		System.out.println("검색할 게시판의 제목을 입력하세요.");
-		System.out.print("검색할 글자(일부만 입력해도 됨) > ");
+		System.out.print("검색할 글자(일부만 입력해도 됨) >> ");
 		String boardTitle = scanner.nextLine();
-		System.out.println("검색할 작성자(정확히 입력할 것) > ");
+		System.out.print("검색할 작성자(정확히 입력할 것) >> ");
 		String boardWriter = scanner.nextLine();
-		System.out.println("검색할 내용(일부만 입력해도 됨) > ");
+		System.out.print("검색할 내용(일부만 입력해도 됨) >> ");
 		String boardContent = scanner.nextLine();
 
 		try {
