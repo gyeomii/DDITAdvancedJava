@@ -149,13 +149,13 @@ public class BoardMain {
 
 		do {
 			System.out.println("삭제할 게시글 번호를 입력하세요.");
-			System.out.print("게시글 ID >> ");
+			System.out.print("게시글 번호 >> ");
 			boardNo = scanner.nextLine();
 
 			chk = boardService.checkBoard(boardNo);
 
 			if (chk == false) {
-				System.out.println("게시글 번호가 " + boardNo + "인 게시글이 없습니다.");
+				System.out.println("게시글 번호 가" + boardNo + "인 게시글은 없습니다.");
 				System.out.println("다시 입력해주세요.");
 			}
 		} while (chk == false);
@@ -166,7 +166,7 @@ public class BoardMain {
 		if (cnt > 0) {
 			System.out.println(boardNo + "게시글 삭제 작업 성공");
 		} else {
-			System.out.println(boardNo + "게시글 삭제 작업 실패!!!");
+			System.out.println(boardNo + "게시글 삭제 작업 실패");
 		}
 	}
 	
