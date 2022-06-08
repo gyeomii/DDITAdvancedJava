@@ -108,7 +108,7 @@ public class BoardMain {
 	private void editPost() {
 		boolean chk = false;
 		String boardNo = null;
-
+		scanner.nextLine();
 		do {
 			System.out.println("수정할 게시글 번호를 입력하세요.");
 			System.out.print("게시글 번호 >> ");
@@ -124,8 +124,7 @@ public class BoardMain {
 
 		// 게시글 번호를 정상적으로 입력한 경우 아래 코드 실행
 		System.out.println("수정할 정보를 입력하세요");
-		scanner.nextLine();
-		System.out.println("게시글 제목 >> ");
+		System.out.print("게시글 제목 >> ");
 		String title = scanner.nextLine();
 		System.out.println("게시글 내용 >> ");
 		String content = scanner.nextLine();
@@ -138,9 +137,9 @@ public class BoardMain {
 		int cnt = boardService.editPost(bv);
 
 		if (cnt > 0) {
-			System.out.println(boardNo + "게시글 수정 작업 성공");
+			System.out.println(boardNo + "번 게시글 수정 작업 성공");
 		} else {
-			System.out.println(boardNo + "게시글 수정 작업 실패");
+			System.out.println(boardNo + "번 게시글 수정 작업 실패");
 		}
 	}
 
@@ -166,9 +165,9 @@ public class BoardMain {
 		int cnt = boardService.deletePost(boardNo);
 
 		if (cnt > 0) {
-			System.out.println(boardNo + "게시글 삭제 작업 성공");
+			System.out.println(boardNo + "번 게시글 삭제 작업 성공");
 		} else {
-			System.out.println(boardNo + "게시글 삭제 작업 실패");
+			System.out.println(boardNo + "번 게시글 삭제 작업 실패");
 		}
 	}
 
