@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberTest">
+<!-- 
+	이 영역에 SQL문에 맞는 태그를 사용하여 SQL문을 기술한다.
+	
+	사용할 수 있는 기본적인 태그들
+	 <select id=""></select>
+	 <insert id=""></insert>
+	 <update id=""></update>
+	 <delete id=""></delete>
+	 
+	 위 태그에서 사용되는 속성들
+	 1)id속성 : 해당 태그를 호출할 때 <mapper>태그의 namespace속성과 연결하여 사용하는 이름
+	 2)parameterType 속성 : SQL문에 사용될 데이터가 들어있는 객체의 타입을 지정함
+	 						(보통 VO클래스, 자바의 자료형 이름 등이 사용된다.)
+	 3)resultType 속성 : select문을 실행한 결과를 담은 객체의 타입을 지정함.
+   						 (보통 VO클래스, 자바의 자료형 이름 등이 사용된다.)
+	 4)resultMap 속성 : 결과 레코드 컬럼명과 VO객체의 property명이 다를 경우 적절한 매핑을 위해 사용된다.
+	
+ -->
+	<!-- Insert 연습 -->
+	<insert id="insertMember" parameterType="MyBatis.vo.MemberVO">
+		INSERT INTO mymember (mem_id, mem_name, mem_tel, mem_addr, reg_dt)
+		VALUES ( #{memId}, #{memName}, #{memTel}, #{memAddr}, sysdate)
+	</insert>
+	<!-- Update 연습 -->
+	<update id="updateMember" parameterType="MyBatis.vo.MemberVO">
+		UPDATE mymember SET mem_name = #{memName}, mem_tel = #{memTel}, mem_addr = #{memAddr}
+		WHERE mem_id = #{memId}
+	</update>
+	<!-- Delete 연습 -->
+	<delete id="deleteMember" parameterType="String">
+		Delete from mymember WHERE mem_id = #{memId}
+	</delete>
+	<!-- Select 연습 -->
+	<resultMap type="MyBatis.vo.MemberVO" id="memMap">
+		<result column="mem_id" property="memId"/>
+		<result column="mem_name" property="memName"/>
+		<result column="mem_tel" property="memTel"/>
+		<result column="mem_addr" property="memAddr"/>
+	</resultMap>
+	
+	<select id="getMemberAll" resultMap="memMap">
+		SELECT mem_id as memId
+			 , mem_name as memName
+			 , mem_tel as memTel
+			 , mem_addr as memAddr
+		  FROM MYMEMBER
+		 ORDER BY 1
+	</select>
+	
+	<select id="getMemberAll2" resultType="MyBatis.vo.MemberVO">
+		SELECT mem_id, mem_name, mem_tel, mem_addr
+		  FROM MYMEMBER
+		 ORDER BY 1
+	</select>
+	
+	<select id="getMember" resultType="MyBatis.vo.MemberVO">
+		SELECT mem_id, mem_name, mem_tel, mem_addr
+		  FROM MYMEMBER
+	    WHERE mem_id = #{memId}
+	</select>
+</mapper>
