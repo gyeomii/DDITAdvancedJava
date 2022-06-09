@@ -2,9 +2,9 @@ package MVCBoardService.service;
 
 import java.util.List;
 
-import MVCBoardService.dao.BoardDaoImpl;
 import MVCBoardService.dao.IBoardDao;
 import MVCBoardService.vo.BoardVO;
+import MVCBoardService.dao.BoardDaoImpl;
 
 public class BoardServiceImpl implements IBoardService {
 	private IBoardDao boardDao;

@@ -21,7 +21,7 @@ public class BoardDaoImpl implements IBoardDao {
 	private static IBoardDao boardDao;
 
 	private BoardDaoImpl() {
-
+		
 	}
 
 	public static IBoardDao getInstance() {

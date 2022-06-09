@@ -12,8 +12,9 @@ public class BoardServiceImpl implements IBoardService {
 	public BoardServiceImpl() {
 		boardDao = BoardDaoImpl.getInstance();
 	}
-	private static IBoardService boardService;
 	
+	private static IBoardService boardService;
+
 	public static IBoardService getInstance() {
 		if(boardService == null) {
 			boardService = new BoardServiceImpl();

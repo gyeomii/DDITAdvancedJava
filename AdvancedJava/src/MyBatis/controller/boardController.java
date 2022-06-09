@@ -1,4 +1,4 @@
-package MyBatis;
+package MyBatis.controller;
 
 import java.util.List;
 import java.util.Scanner;
@@ -7,17 +7,13 @@ import MyBatis.service.BoardServiceImpl;
 import MyBatis.service.IBoardService;
 import MyBatis.vo.BoardVO;
 
-public class BoardMain {
+public class boardController {
 	private IBoardService boardService;
 	Scanner scanner = new Scanner(System.in);
 	private boolean isOn = true;
 
-	public BoardMain() {
+	public boardController() {
 		boardService = new BoardServiceImpl();
-	}
-
-	public static void main(String[] args) {
-		new BoardMain().start();
 	}
 
 	// 프로그램 시작
