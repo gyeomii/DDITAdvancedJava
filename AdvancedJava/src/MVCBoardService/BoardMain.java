@@ -112,6 +112,7 @@ public class BoardMain {
 		boolean chk = false;
 		String boardNo = null;
 		scanner.nextLine();
+		displayAllPost();
 		do {
 			System.out.println("수정할 게시글 번호를 입력하세요.");
 			System.out.print("게시글 번호 >> ");
@@ -150,7 +151,8 @@ public class BoardMain {
 	private void deletePost() {
 		boolean chk = false;
 		String boardNo = null;
-
+		displayAllPost();
+		scanner.nextLine();
 		do {
 			System.out.println("삭제할 게시글 번호를 입력하세요.");
 			System.out.print("게시글 번호 >> ");
