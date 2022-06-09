@@ -132,13 +132,33 @@ public class BoardDaoImpl implements IBoardDao {
 		List<BoardVO> boardList = new ArrayList<BoardVO>();
 		try {
 			conn = JDBCUtil.getConnection();
-			String sql = " SELECT * FROM JDBC_BOARD " + "WHERE BOARD_TITLE LIKE '%'||?||'%' AND "
-					+ "BOARD_WRITER = ? AND " + "BOARD_CONTENT LIKE '%'||?||'%' ";
+			//and를 쓰기위해 1=1을 사용(다이나믹 쿼리 위함)
+			String sql = "select * from JDBC_BOARD where 1=1";
+//			갖고온게 null이 아니고 빈칸이 아니면
+			if (bv.getTitle() != null && !bv.getTitle().equals("")) {
+				sql += " and BOARD_TITLE like '%' || ? || '%' ";
+			}
+			if (bv.getWriter() != null && !bv.getWriter().equals("")) {
+				sql += " and BOARD_WRITER = ?";
+			}
+			if (bv.getContent() != null && !bv.getContent().equals("")) {
+				sql += " and BOARD_CONTENT like '%' || ? || '%' ";
+			}
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, bv.getTitle());
-			pstmt.setString(2, bv.getWriter());
-			pstmt.setString(3, bv.getContent());
+			
+			//값이 존재할 때 index변수를 사용하여 ? 에 데이터 삽입
+			int index = 1;
+			if (bv.getTitle() != null && !bv.getTitle().equals("")) {
+				pstmt.setString(index++, bv.getTitle());
+			}
+			if (bv.getWriter() != null && !bv.getWriter().equals("")) {
+				pstmt.setString(index++, bv.getWriter());
+			}
+			if (bv.getContent() != null && !bv.getContent().equals("")) {
+				pstmt.setString(index++, bv.getContent());
+			}
+		
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {

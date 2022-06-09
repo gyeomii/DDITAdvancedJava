@@ -53,7 +53,7 @@ public class BoardMain {
 
 	private void displayMenu() {
 		System.out.println("          ************************          ");
-		System.out.println("           WELCOME TO GYEOMII LOG           ");
+		System.out.println("           WELCOME TO GYEOMII.LOG           ");
 		System.out.println("          ************************          ");
 		System.out.println("--------------------------------------------");
 		System.out.println("          어떤 업무를 하시겠습니까?         ");
@@ -72,11 +72,10 @@ public class BoardMain {
 			System.out.println();
 			System.out.println("[" + bv.getBoardNo()+"번 게시글]");
 			System.out.println("=================================================");
-			System.out.println(" 작성자 : " + bv.getWriter() + "  작성일자 : " + bv.getDate());
+			System.out.println(" 작성자 : " + bv.getWriter() + " | 작성일자 : " + bv.getDate());
 			System.out.println("-------------------------------------------------");
 			System.out.println(" 제목 : " + bv.getTitle());
 			System.out.println("-------------------------------------------------");
-			System.out.println("<내용>");
 			System.out.println(" " + bv.getContent());
 			System.out.println("=================================================");
 		}
@@ -179,12 +178,12 @@ public class BoardMain {
 	private void searchPost() {
 		// 전체 게시글 확인
 		scanner.nextLine();
-		System.out.println("검색할 게시판의 제목을 입력하세요.");
-		System.out.print("검색할 제목(일부만 입력 가능) >> ");
+		System.out.println("<제목과 내용은 일부만 입력해도 검색 가능합니다>");
+		System.out.print("검색할 제목   >> ");
 		String title = scanner.nextLine();
-		System.out.print("검색할 작성자(정확히 입력하세요) >> ");
+		System.out.print("검색할 작성자 >> ");
 		String writer = scanner.nextLine();
-		System.out.print("검색할 내용(일부만 입력 가능) >> ");
+		System.out.print("검색할 내용   >> ");
 		String content = scanner.nextLine();
 		
 		BoardVO bv = new BoardVO();
@@ -201,11 +200,10 @@ public class BoardMain {
 			System.out.println();
 			System.out.println("[" + bv1.getBoardNo()+"번 게시글]");
 			System.out.println("=================================================");
-			System.out.println(" 작성자 : " + bv1.getWriter() + "  작성일자 : " + bv1.getDate());
+			System.out.println(" 작성자 : " + bv1.getWriter() + " | 작성일자 : " + bv1.getDate());
 			System.out.println("-------------------------------------------------");
 			System.out.println(" 제목 : " + bv1.getTitle());
 			System.out.println("-------------------------------------------------");
-			System.out.println("<내용>");
 			System.out.println(" " + bv1.getContent());
 			System.out.println("=================================================");
 		}
