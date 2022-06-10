@@ -1,8 +1,8 @@
-package MVCBoardService.service;
+package JavaMVC.service;
 
 import java.util.List;
 
-import MVCBoardService.vo.BoardVO;
+import JavaMVC.vo.BoardVO;
 /**
  * Post(게시물) 정보 처리를 수행하는 Service
  * @author Gyeom

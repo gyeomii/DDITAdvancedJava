@@ -1,8 +1,8 @@
-package MVCBoardService.dao;
+package JavaMVC.dao;
 
 import java.util.List;
 
-import MVCBoardService.vo.BoardVO;
+import JavaMVC.vo.BoardVO;
 
 /**
  * 실제 DB와 연결해서 SQL문을 수행하여 결과를 작성한다.

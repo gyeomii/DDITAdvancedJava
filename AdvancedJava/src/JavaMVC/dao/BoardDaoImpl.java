@@ -1,4 +1,4 @@
-package MVCBoardService.dao;
+package JavaMVC.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import MVCBoardService.vo.BoardVO;
+import JavaMVC.vo.BoardVO;
 import util.JDBCUtil;
 
 public class BoardDaoImpl implements IBoardDao {

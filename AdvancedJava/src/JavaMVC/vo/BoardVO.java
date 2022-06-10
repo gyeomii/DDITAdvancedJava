@@ -1,4 +1,4 @@
-package MVCBoardService.vo;
+package JavaMVC.vo;
 /**
  * DB 테이블에 있는 컬럼을 기준으로 데이터를 객체화한 클래스이다.
  * @author Gyeomii

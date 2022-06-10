@@ -1,11 +1,11 @@
-package MVCBoardService;
+package JavaMVC;
 
 import java.util.List;
 import java.util.Scanner;
 
-import MVCBoardService.service.BoardServiceImpl;
-import MVCBoardService.service.IBoardService;
-import MVCBoardService.vo.BoardVO;
+import JavaMVC.service.BoardServiceImpl;
+import JavaMVC.service.IBoardService;
+import JavaMVC.vo.BoardVO;
 
 public class BoardMain {
 	private IBoardService boardService;
