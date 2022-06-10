@@ -78,7 +78,6 @@ public class BoardDaoImpl implements IBoardDao {
 	public boolean checkBoard(String boardNo) {
 		boolean chk = false;
 		int cnt = (int) sqlSession.selectOne("board.checkPost",boardNo);
-		
 		if(cnt > 0) {
 			chk = true;
 		}

@@ -5,6 +5,10 @@
 <configuration>
 	<properties resource="db.properties" />
 	
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
 	 <typeAliases>
  		<typeAlias type="MyBatis.vo.BoardVO" alias="boardVO"/>
  	</typeAliases>

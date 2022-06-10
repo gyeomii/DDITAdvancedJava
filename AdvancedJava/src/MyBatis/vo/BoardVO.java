@@ -9,10 +9,10 @@ package MyBatis.vo;
  */
 public class BoardVO {
 	private String boardNo; // board_no number not null, -- 번호(자동증가)
-	private String title; // board_title varchar2(100) not null, -- 제목
-	private String writer; // board_writer varchar2(50) not null, -- 작성자
-	private String date; // board_date date not null, -- 작성날짜
-	private String content; // board_content clob, -- 내용
+	private String boardTitle; // board_title varchar2(100) not null, -- 제목
+	private String boardWriter; // board_writer varchar2(50) not null, -- 작성자
+	private String boardDate; // board_date date not null, -- 작성날짜
+	private String boardContent; // board_content clob, -- 내용
 
 	public String getBoardNo() {
 		return boardNo;
@@ -23,41 +23,41 @@ public class BoardVO {
 	}
 
 	public String getTitle() {
-		return title;
+		return boardTitle;
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+		this.boardTitle = title;
 	}
 
 	public String getWriter() {
-		return writer;
+		return boardWriter;
 	}
 
 	public void setWriter(String writer) {
-		this.writer = writer;
+		this.boardWriter = writer;
 	}
 
 	public String getDate() {
-		return date;
+		return boardDate;
 	}
 
 	public void setDate(String date) {
-		this.date = date;
+		this.boardDate = date;
 	}
 
 	public String getContent() {
-		return content;
+		return boardContent;
 	}
 
 	public void setContent(String content) {
-		this.content = content;
+		this.boardContent = content;
 	}
 
 	@Override
 	public String toString() {
-		return "BoardVO [boardNo=" + boardNo + ", title=" + title + ", writer=" + writer + ", date=" + date
-				+ ", content=" + content + "]";
+		return "BoardVO [boardNo=" + boardNo + ", title=" + boardTitle + ", writer=" + boardWriter + ", date=" + boardDate
+				+ ", content=" + boardContent + "]";
 	}
 
 }

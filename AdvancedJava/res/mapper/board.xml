@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="memberTest">
+<mapper namespace="board">
 	<!-- Insert 연습 -->
 	<insert id="writePost" parameterType="boardVO">
 		INSERT INTO JDBC_BOARD(BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_DATE, BOARD_CONTENT)
-		VALUES(BOARD_SEQ.NEXTVAL, #{title}, #{writer}, SYSDATE, #{content})
+		VALUES(BOARD_SEQ.NEXTVAL, #{boardTitle}, #{boardWriter}, SYSDATE, #{boardContent})
 	</insert>
 	<!-- Update 연습 -->
 	<update id="editPost" parameterType="boardVO">
 		UPDATE JDBC_BOARD
-		SET BOARD_TITLE = #{title}, BOARD_CONTENT = #{content} WHERE BOARD_NO = #{boardNo}
+		SET BOARD_TITLE = #{boardTitle}, BOARD_CONTENT = #{boardContent} WHERE BOARD_NO = #{boardNo}
 	</update>
 	<!-- Delete 연습 -->
 	<delete id="deletePost" parameterType="String">
@@ -18,33 +18,13 @@
 	<!-- Select 연습 -->
 	<resultMap type="boardVO" id="boardMap">
 		<result column="BOARD_NO" property="boardNo"/>
-		<result column="BOARD_TITLE" property="title"/>
-		<result column="BOARD_WRITER" property="writer"/>
-		<result column="BOARD_DATE" property="date"/>
-		<result column="BOARD_CONTENT" property="content"/>
+		<result column="BOARD_TITLE" property="boardTitle"/>
+		<result column="BOARD_WRITER" property="boardWriter"/>
+		<result column="BOARD_DATE" property="boardDate"/>
+		<result column="BOARD_CONTENT" property="boardContent"/>
 	</resultMap>
 	
-	<select id="getPostAll" resultMap="boardMap">
-		SELECT BOARD_NO as boardNo
-			 , BOARD_TITLE as title
-			 , BOARD_WRITER as writer
-			 , BOARD_DATE as date
-			 , BOARD_CONTENT as content
-		  FROM JDBC_BOARD
-		 ORDER BY 1
-	</select>
-	
-	<select id="getPostAll2" resultType="boardVO">
-		SELECT BOARD_NO
-			 , BOARD_TITLE
-			 , BOARD_WRITER
-			 , BOARD_DATE
-			 , BOARD_CONTENT
-		  FROM JDBC_BOARD
-		 ORDER BY 1
-	</select>
-	
-	<select id="getPost" resultType="boardVO">
+	<select id="getPost" resultMap="boardMap">
 		SELECT BOARD_NO
 			 , BOARD_TITLE
 			 , BOARD_WRITER
@@ -54,16 +34,47 @@
 	    WHERE BOARD_NO = #{boardNo}
 	</select>
 	
+	<select id="getPostAll" resultMap="boardMap">
+		SELECT BOARD_NO
+			 , BOARD_TITLE
+			 , BOARD_WRITER
+			 , BOARD_DATE as
+			 , BOARD_CONTENT
+		  FROM JDBC_BOARD
+		 ORDER BY 1
+	</select>
+	
+	<select id="getPostAll2" resultType="boardVO">
+		SELECT BOARD_NO as boardNo
+			 , BOARD_TITLE as boardTitle
+			 , BOARD_WRITER as boardWriter
+			 , BOARD_DATE as boardDate
+			 , BOARD_CONTENT as boardContent
+		  FROM JDBC_BOARD
+		 ORDER BY 1
+	</select>
+	
+	<select id="checkPost" resultType="int">
+		SELECT count(*) as cnt
+		 FROM JDBC_BOARD
+	    WHERE BOARD_NO = #{boardNo}
+	</select>
+	
 	<select id="searchPost" resultType="boardVO">
-		select * from JDBC_BOARD where 1=1
-		<if test="title != null and title != ''">
-			and BOARD_TITLE like '%' || #{title} || '%'
+		SELECT BOARD_NO as boardNo
+			 , BOARD_TITLE as boardTitle
+			 , BOARD_WRITER as boardWriter
+			 , BOARD_DATE as boardDate
+			 , BOARD_CONTENT as boardContent
+		  FROM JDBC_BOARD where 1=1
+		<if test="boardTitle != null and boardTitle != ''">
+			and BOARD_TITLE like '%' || #{boardTitle} || '%'
 		</if>
-		<if test="writer != null and writer != ''">
+		<if test="boardWriter != null and boardWriter != ''">
 			and BOARD_WRITER = #{writer}  
 		</if>
-		<if test="content != null and content != ''">
-			and BOARD_CONTENT like '%' || #{content} || '%'
+		<if test="boardContent != null and boardContent != ''">
+			and BOARD_CONTENT like '%' || #{boardContent} || '%'
 		</if>
 	</select>
 </mapper>

@@ -83,16 +83,16 @@ public class boardController {
 		System.out.println("새로운 글을 작성합니다.");
 		scanner.nextLine();
 		System.out.print("제목   >> ");
-		String title = scanner.nextLine();
+		String boardTitle = scanner.nextLine();
 		System.out.print("작성자 >> ");
-		String writer = scanner.nextLine();
+		String boardWriter = scanner.nextLine();
 		System.out.print("내용   >> ");
-		String content = scanner.nextLine();
+		String boardContent = scanner.nextLine();
 
 		BoardVO bv = new BoardVO();
-		bv.setTitle(title);
-		bv.setWriter(writer);
-		bv.setContent(content);
+		bv.setTitle(boardTitle);
+		bv.setWriter(boardWriter);
+		bv.setContent(boardContent);
 
 		int cnt = boardService.writePost(bv);
 
@@ -125,14 +125,14 @@ public class boardController {
 		// 게시글 번호를 정상적으로 입력한 경우 아래 코드 실행
 		System.out.println("수정할 정보를 입력하세요");
 		System.out.print("게시글 제목 >> ");
-		String title = scanner.nextLine();
+		String boardTitle = scanner.nextLine();
 		System.out.println("게시글 내용 >> ");
-		String content = scanner.nextLine();
+		String boardContent = scanner.nextLine();
 
 		BoardVO bv = new BoardVO();
 		bv.setBoardNo(boardNo);
-		bv.setTitle(title);
-		bv.setContent(content);
+		bv.setTitle(boardTitle);
+		bv.setContent(boardContent);
 
 		int cnt = boardService.editPost(bv);
 
@@ -178,16 +178,16 @@ public class boardController {
 		scanner.nextLine();
 		System.out.println("<제목과 내용은 일부만 입력해도 검색 가능합니다>");
 		System.out.print("검색할 제목   >> ");
-		String title = scanner.nextLine();
+		String boardTitle = scanner.nextLine();
 		System.out.print("검색할 작성자 >> ");
-		String writer = scanner.nextLine();
+		String boardWriter = scanner.nextLine();
 		System.out.print("검색할 내용   >> ");
-		String content = scanner.nextLine();
+		String boardContent = scanner.nextLine();
 		
 		BoardVO bv = new BoardVO();
-		bv.setTitle(title);
-		bv.setWriter(writer);
-		bv.setContent(content);
+		bv.setTitle(boardTitle);
+		bv.setWriter(boardWriter);
+		bv.setContent(boardContent);
 
 		List<BoardVO> boardList = boardService.searchPost(bv);
 
